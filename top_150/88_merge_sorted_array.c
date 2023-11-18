@@ -1,4 +1,7 @@
+
+
 void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
+    /* total length is m + n - 1*/
     for (int i = m + n - 1; i > -1; i--) {
         if (m == 0) {
             nums1[i] = nums2[n-1];
