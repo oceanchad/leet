@@ -23,7 +23,7 @@ typedef unsigned long UL;
  * @return int
  */
 
-int fun(int x)
+int func(int x)
 {
     int count = 0;
     while (x)
@@ -42,7 +42,7 @@ int c = 0;
 
 int fib(int n){
     c++;
-    if ((n==1)|| (n==2))
+    if ((n == 1)|| (n == 2))
         return 1;
     return (fib(n-1)+fib(n-2));
 }
@@ -65,14 +65,14 @@ int main()
      */
 
     /**
-     * Q4. the value of *(a+1) and *(p-1)?
+     * Q4. the value of *(a+1) and *(p-1), (*p-1)?
      *
      */
     int a[] = {1, 2, 3, 4, 5};
     int *p = (int *)(&a + 1);
 
     /**
-     * Q5. the content of array a?
+     * Q5. the content of array b?
      *
      */
 
@@ -86,7 +86,7 @@ int main()
      *
      */
     int i, j;
-    for (i = 0, j = 1; i < 5; i++)
+    for (i = 0, j = 1; i < 5; ++i)
         INC(j);
 
     /**
@@ -184,7 +184,7 @@ int main()
     }
 
     /**
-     * Q17.
+     * Q18.
      * 給定input:  0x2222
      * 輸出output: Yes if 每4bit一樣
      */
@@ -196,7 +196,7 @@ int main()
         printf("No\n");
 
     /**
-     * Q18.
+     * Q19.
      * 觀察input及output: 3 -> 32, 0 -> 32, 32 -> 64, 90 -> 96
      */
     unsigned int arr_32[] = {3, 0, 32, 90};
@@ -205,14 +205,14 @@ int main()
     }
 
     /**
-     * Q19.
+     * Q20.
      * 重寫 void(*(*papf)[3])(char *)
      * typedef ______;
      * pf(*papf)[3];
      */
 
     /**
-     * Q20.
+     * Q21.
      * 寫出以下程式碼
      * set the specific bit
      * clear the specific bit
@@ -222,19 +222,19 @@ int main()
      */
 
     /**
-     * Q21.
+     * Q22.
      * 檢查輸入是否為3的倍數，不能使用division或是mod
      *
      */
 
     /**
-     * Q22.
+     * Q23.
      * 用bit operation寫出swap
      *
      */
 
     /**
-     * Q23.
+     * Q24.
      * 輸入一個數字及一個array，該array長度為該數字，輸出一個數字，該數字所有子集合中總和的最大值
      * 給定input: 5, [2, -1, 4, -2, 2]
      * 給定output: 6 (因為 2,4 加總最大), [2 2 4] = [2 4]
@@ -242,43 +242,123 @@ int main()
      */
 
     /**
-     * Q24.
+     * Q25.
      * print出100 ~ -100，寫出兩種不同的方式
      *
      */
 
     /**
-     * Q25.
+     * Q26.
      * 寫出一個會發生memory leak的程式
      *
      */
 
     /**
-     * Q26.
+     * Q27.
      * 請寫一個程式會發生pointer失效但是編譯是成功的
      *
      */
 
     /**
-     * Q27.
+     * Q28.
      * 呼叫fib(5)之後，c的值為何？
      *
      */
 
     /**
-     * Q28.
+     * Q29.
      * 給兩個數 a b，判斷兩數是否互值
      */
 
     /**
-     * Q29.
+     * Q30.
      * write your own strcmp
      *
      */
 
     /**
-     * Q30.
+     * Q31.
      * 判斷一整數是偶數還是奇數
+     *
+     */
+
+    /**
+     * Q32.
+     * *ptrA = ?
+     *  int B = 2;
+        void func1(int *p) {p = &B;}
+        int main(){
+            int A = 1, C = 3;
+            int *ptrA = &A;
+            func1(ptrA);
+            printf("%d\n", *ptrA);
+            return 0;
+        }
+        如果要印出2，要如何更改？
+     */
+
+    /**
+     * Q33.
+     * void func1(void)
+        {
+            static int i = 0;
+            i++;
+            printf("%d", i);
+        }
+     *  call func1 8次, output為多少？ Ans: 12345678
+     */
+
+    /**
+     * Q34.
+     * int a, b, c, d, i, result;
+        int main(){
+            // i = 1 ~ 4, a = 4
+            for (i = 0, a = 0; ++i < 5; a++);
+            // i = 5 ~ 2, --i = 4 ~ 1, b = 4
+            for (i = 5, b = 0; --i; b++);
+            // i = 0 ~ 4, c = 5, b = 0
+            for (i = 0, b = 0; i++ < 5; c++);
+            // i = 5 ~ 1, d = 5
+            for (i = 5, d = 0; i--; d++);
+            result = a * b * c * d;
+            printf("%d %d %d %d %d", a, b, c, d, result);
+        }
+     *
+     */
+
+    /**
+     * Q35.
+     * char data[8] = {1, 2, 3, 4, 5, 6, 7, 8};
+        short *a = (short*)&data[0];
+        int b = *a;
+        printf("%d", b);
+     */
+
+    /**
+     * Q36.
+     * int a = 320;
+        char *ptr;
+        ptr = (char *)&a;
+        printf("%d", *ptr);
+     *
+     */
+
+    /**
+     * Q37.
+     * static int a1 = 1; //0x601040
+        int a2;
+
+        int main(){
+            static int a3; //0x601048
+            int a4; //0x472a5d8c
+
+            printf("0x%x", &a2);
+        }
+        What is the possible address a2 variable?
+        A. 0x472a5d6c
+        B. 0x60104c
+        C. 0x80104c
+        D. 0x601040
      *
      */
 
