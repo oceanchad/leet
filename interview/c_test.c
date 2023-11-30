@@ -362,4 +362,64 @@ int main()
      *
      */
 
+    /**
+     * Q38.
+     * #define SWAP(a, b) temp = a; a = b; b = temp;
+        int main()
+        {
+            int i, j, temp;
+            i = 5;
+            j = 10;
+            temp = 0;
+            if (i > j)
+                SWAP(i, j);
+            printf("%d %d %d", i, j, temp);
+        }
+     */
+
+    /**
+     * Q39.
+     * int main()
+        {
+            int data[6] = {1, 2, 3, 11, 22, 33};
+            int *a = data;
+            int *b = data + 3;
+            int c = *a++ + *b++;
+            int d = *++a + *++b;
+            printf("%d %d", c, d);
+        }
+     */
+
+    /**
+     * Q40.
+     * Bubble sort
+     * void bubble_sort(int arr[], int n)
+        {
+            bool swap_value = false;
+            for (int i = 0 ; i < n - 1; i++) {
+                for (int j = 0 ; j < n - i - i; j++) {
+                    if (arr[j] > arr[j+1]) {
+                        swap_xor(&arr[j], &arr[j+1]);
+                        swap_value = true;
+                    }
+                }
+                if (swap_value == false) {
+                    printf("no swap");
+                    break;
+                }
+
+            }
+        }
+     */
+
+    /**
+     * Q41.
+     * void swap_xor(int *a, int *b)
+        {
+            *a = *a ^ *b;
+            *b = *a ^ *b; // b = a XOR b XOR b = a
+            *a = *a ^ *b; // a = a XOR b XOR a = a XOR a XOR b = b
+        }
+     */
+
 }

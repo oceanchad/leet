@@ -41,6 +41,19 @@ int q22(unsigned int n){
         return 1;
     if (n < 3)
         return 0;
-    n = (n >> 2) + (n & 3); // n = (1001 >> 2) + 1001 & 011 = 
+    n = (n >> 2) + (n & 3); // n = (1001 >> 2) + 1001 & 011 =
     return (q22(n));
+}
+
+int isPrime(int n) {
+    int flag = 1;
+    for (int i = 2; i <= n / 2; i++) {
+        if (n % i == 0) {
+            flag = 0;
+            break;
+        }
+    }
+    if (!flag)
+        return 0;
+    return 1;
 }

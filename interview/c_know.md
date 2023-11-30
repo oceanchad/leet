@@ -47,17 +47,29 @@
 2. how to avoid race condition?
    1. race condition核心問題是，thread之間的共享資源不受到控制．通常是在平行處理以及共享資源的存取會造成問題．可以透過mutex lock或是semaphore來控制共享資源的存取．
 3. difference between process and thread
+   1. process擁有自己的address space．process之間透過IPC來通訊，thread之間通訊可透過pass by address或是存取global variable．
+   2. process共享CPU/MEM資源，thread共享process的資源
+   3. thread是OS分配CPU-time的最小單位，process則是分配resource的單位
 4. difference between kernel space and user space
    1. kerenl space即是Linux kernel的運行空間，user space即是user 程序的運行空間．為了確保系統安全，而將kernel和user隔離開，以確保user crash時，不會影響到kernel．kernel space之下，可以調用一切系統資源及命令．而當user space之下，只能執行簡單運算，並透過system call來調用kernel實際運算的命令．
 5. difference between mutex and semaphore and its usage
+   1. mutex
+      1. 適用於保護臨界區，確保在任意時間內只有一個執行緒能夠進入。
+      2. 常見於獨占性資源的同步。
+   2. Semaphore
+      1. 適用於控制多個資源的同時訪問，或者限制同時執行的執行緒數量。
 6. What is OS ?
    1. 確保Process的正確執行
    2. Process間的獨立性 : 即是讓process之間不會互相干擾
    3. 保護硬體 : 分成kernel mode以及user mode確保使用者不會破壞硬體
    4. 提供high level syscall : 確保使用者不能直接操作硬體，並簡化使用者透過syscall來對硬體資源進行存取
 7. 解釋 multi-thread multi-process
+   1. 就像是一間工廠有多個工人，這樣的話那就需要避免他們互搶設備或互相等待
+   2. Multi-Process就像是蓋多間工廠，蓋更多工廠意味著更多的資本支出，而且工廠和工廠間要資源交換比較不容易
 8. 解釋 deadlock，怎麼避免
 9.  解釋 preemptive
+   1.  作業系統將正在執行的程式強行暫停，由排程程式將CPU分配給其他就緒程式的排程方式。
+   2.  thread 被動讓
 
 [作業系統常見面試和筆試題上](https://www.796t.com/content/1546240689.html)
 
@@ -72,14 +84,25 @@
 # 計算機組織
 1. 解釋 function stack
 2. 如何防止stack overflow
+   1. 定義足夠的堆疊空間
 3. 解釋 cpu pipeline
 4. 解釋 data hazard
 
 # ARM
 1. 根據 FreeRTOS 的 context switch 原始碼，這邊的 isb 指令是做什麼的 ? (跟 memory barrier 有關)
+   1. 目的並不是要控制執行順序，他們的目的是扮演一種 barrier 的角色，在 特定條件滿足之後 再繼續執行 barrier 之後的 instruction。
+   2. flush pipeline，以保證所有它前面的指令都執行完畢之後，才執行它後面的指令。
 2. 你知道 thumb 嗎 ?
 3. ARM cortex-M 是怎麼控制 thumb ?
+   1. 藉由CPSR register[5] = 1 -> Thumb mode, link register last bit = 1
 4. ARM 跟 thumb 指令集有什麼差別 ?
+   1. 指令寬度:
+   ARM指令集使用32位的指令。
+   Thumb指令集使用16位的指令。
+   2. Thumb指令通常比相應的ARM指令更緊湊，佔用更少的存儲空間。
+   3. 相同的時鐘周期內，Thumb指令集可能能夠執行更多的指令，提高性能。
+   4. ARM指令集的指令通常比Thumb指令集的指令功能更強大，特別是對於數學運算等操作。
+   5. Thumb指令集通常用於對代碼密度和節省存儲空間有較高要求的應用，例如嵌入式系統。
 5. 既然你提到 AAPCS ，能否說明一下 AAPCS 的主要流程 ?
 6. 你知道 trusted zone 是什麼嗎 ? (M 系列 ARMv8 後才有的樣子)
 7. 有用過 A 系列嗎 ?

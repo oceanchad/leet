@@ -10,6 +10,7 @@
  */
 
 #include "c_test_imp.h"
+#include <stdbool.h>
 /**
  * A1. MUX(a, b) 10+5 *10-5 = 10 + 50 - 5 = 55
  *
@@ -59,19 +60,75 @@
  */
 
 /**
+ * A13.
+ * struct ABC *a = NULL;
+    a++;
+    printf("%u", a);
+    return 0;
+ *
+ */
+
+
+/**
  * A21.
  * #define SET_BIT(reg, bit)    ((reg) |= (1 << (bit)))
  * #define CLEAR_BIT(reg, bit)  ((reg) &= ~(1 << (bit)))
  * #define INV_BIT(reg, bit)    ((reg) ^= (1 << (bit))) = TOGGLE
  * #define GET_BIT(reg, bit)    ((reg) &= (1 << (bit)))
  */
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
 
-static int a1 = 1; //0x601040
-int a2;
+
+
+void printArray(int arr[], int size)
+{
+    int i;
+    for (i = 0; i < size; i++)
+        printf("%d, ", arr[i]);
+}
+void insert_sort(int arr[], int n)
+{
+    int i, key, j;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;
+
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j -= 1;
+        }
+        arr[j+1] = key;
+    }
+}
+
+#include <stdio.h>
+
+int fun(int a, int *b){
+    static int c = 0;
+    a += *b; // a = 24 + 12 = 36
+    *b = a; // y = 36
+    c += a + *b; // c = 36 + 36 + 24
+    printf("%d %d %d", a, *b, c);
+    return c;
+}
 
 int main(){
-    static int a3; //0x601048
-    int a4; //0x472a5d8c
-
-    printf("0x%x", &a2);
+    int arr[] = {1, 2, 3, 4};
+    int *p = &arr + 1;
+    int *q = &arr+1;
+    int *r = &arr[0] + 1;
+    printf("%p %p %p", p, q, r);
+    // int x, y, z, sum;
+    // x = 5;
+    // y = 7;
+    // x = fun(x, &y); // x = 24
+    // z = fun(x, &y); // x =24, y = 12
+    // sum = x + y + z;
+    // printf("%d", z);
 }
